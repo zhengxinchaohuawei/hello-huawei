@@ -1,0 +1,82 @@
+{
+    "schemaVersion":  3,
+    "publicationId":  "ce554938a1f343958759d161d08455e9",
+    "repository":  "zhengxinchaohuawei/hello-huawei-pages",
+    "status":  "assets-verified",
+    "startedAt":  "2026-11-21T03:10:53.0357053+00:00",
+    "targetSeconds":  300,
+    "checks":  {
+                   "deployment":  "passed",
+                   "assets":  "passed",
+                   "browser":  "pending",
+                   "learner":  "pending"
+               },
+    "browserChecklist":  [
+                             "样式与确认的页面一致",
+                             "图片、字体和其他资源正常",
+                             "一项关键交互可用"
+                         ],
+    "deliveryText":  "打开此地址查看作品",
+    "designSource":  "C:\\Users\\z00578262\\Desktop\\ai-coding project\\hello huawei\\2026-11-21\\huawei-tenure-days\\outputs\\index-soft.html",
+    "commit":  "61f0f5acc2f877ceff24907399a5d277ffde9724",
+    "branch":  "main",
+    "buildId":  "d40b22c1-bc1e-4ddd-96b1-ba94bbc92c73",
+    "stagingDirectory":  "C:\\Users\\z00578262\\Desktop\\ai-coding project\\hello huawei\\.local\\pages-stage\\ce554938a1f343958759d161d08455e9",
+    "manifestSha256":  "d70d43b1be7c0471ff9ae692afb10a9e5d6ec17698f883df1d1bddfe9951514d",
+    "learnerTried":  "pending",
+    "worker":  {
+                   "processId":  29084,
+                   "launchStatus":  "ready",
+                   "startTicks":  "639308275035701404",
+                   "log":  "C:\\Users\\z00578262\\Desktop\\ai-coding project\\hello huawei\\.local\\pages-jobs\\ce554938a1f343958759d161d08455e9\\worker-9a8bf282486144859a215ebaadd032bf.log"
+               },
+    "errorCode":  null,
+    "timingDirectory":  "C:\\Users\\z00578262\\Desktop\\ai-coding project\\hello huawei\\.local\\pages-jobs\\ce554938a1f343958759d161d08455e9\\timing",
+    "workflowId":  "static-pages-v1",
+    "runtimeContext":  {
+                           "schemaVersion":  1,
+                           "profile":  "StaticPublish",
+                           "operationId":  "ce554938a1f343958759d161d08455e9",
+                           "binding":  "b9d3597eeddd59c11230ab384a1bb68bd2958871c77718d992ba1d955ab0448a",
+                           "engine":  "724ea3138cc08dda2c323c332c0009ea0836a696d955923b14e6a20f63660b2d",
+                           "imageId":  "80e90904b301d7b1cd19b17da35ec6952ac5280cfae241b1852acaf467a99fd1",
+                           "verifiedAt":  "2026-11-21T03:10:55.1345642+00:00"
+                       },
+    "runtimeContextReused":  true,
+    "identity":  "zhengxinchaohuawei",
+    "url":  "https://zhengxinchaohuawei.github.io/hello-huawei-pages/",
+    "checkedAt":  "2026-11-21T03:12:00.1529020+00:00",
+    "elapsedSeconds":  67.1,
+    "transitions":  [
+                        {
+                            "at":  "2026-11-21T03:10:53.0433813+00:00",
+                            "status":  "preparing"
+                        },
+                        {
+                            "at":  "2026-11-21T03:10:55.8657382+00:00",
+                            "status":  "prepared"
+                        },
+                        {
+                            "at":  "2026-11-21T03:11:13.9905700+00:00",
+                            "status":  "push-started"
+                        },
+                        {
+                            "at":  "2026-11-21T03:11:16.6067977+00:00",
+                            "status":  "pushed"
+                        },
+                        {
+                            "at":  "2026-11-21T03:11:21.5716003+00:00",
+                            "status":  "deployment-pending"
+                        },
+                        {
+                            "at":  "2026-11-21T03:11:56.2901618+00:00",
+                            "status":  "verifying-assets"
+                        },
+                        {
+                            "at":  "2026-11-21T03:12:00.1529020+00:00",
+                            "status":  "assets-verified"
+                        }
+                    ],
+    "technicalCompletedAt":  "2026-11-21T03:12:00.1529020+00:00",
+    "technicalElapsedSeconds":  67.1
+}

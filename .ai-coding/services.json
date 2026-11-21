@@ -1,3 +1,22 @@
 {
-    "schemaVersion":  2
+    "schemaVersion":  2,
+    "github":  {
+                   "purpose":  "source-code",
+                   "authorizationStatus":  "verified",
+                   "bindingStatus":  "bound",
+                   "repository":  "https://github.com/zhengxinchaohuawei/hello-huawei",
+                   "requestedReason":  "按用户要求将源码仓库发布到 GitHub",
+                   "owner":  "zhengxinchaohuawei",
+                   "commit":  "dcfef77327eebdf45a97a4f77c938274321f3ef7"
+               },
+    "githubPages":  {
+                        "purpose":  "static-site",
+                        "authorizationStatus":  "verified",
+                        "repository":  "zhengxinchaohuawei/hello-huawei-pages",
+                        "requestedReason":  "按用户要求用 index-soft.html 发布 GitHub Pages 静态站点",
+                        "owner":  "zhengxinchaohuawei",
+                        "bindingStatus":  "bound",
+                        "sourceHtml":  "2026-11-21/huawei-tenure-days/outputs/index-soft.html",
+                        "branch":  "main"
+                    }
 }

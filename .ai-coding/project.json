@@ -65,15 +65,17 @@
     "port":  5188,
     "containerRuntime":  "podman",
     "networkMode":  "pasta",
-    "capabilityMode":  "on-demand",
-    "capabilities":  [
-                         "local"
-                     ],
     "android":  {
                     "webDir":  "dist",
                     "iconReviewRequired":  false
                 },
     "businessProfile":  null,
+    "capabilities":  [
+                         "local",
+                         "github",
+                         "github-pages"
+                     ],
+    "capabilityMode":  "on-demand",
     "preparationId":  "5f3625e7-8c78-42dd-81a0-d74f0c592e44",
     "installationId":  "1143dea68f4a442e8acb0c039d7d74cb",
     "preparationStatus":  "bound"
