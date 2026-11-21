@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>华为任职天数计算</title>
+<style>
+  :root {
+    --brand: #c7000b;
+    --brand-soft: #fdecee;
+    --ink: #1b1b1f;
+    --ink-2: #5b5f66;
+    --ink-3: #8b9099;
+    --line: #e6e8ec;
+    --bg: #f5f6f8;
+    --card: #ffffff;
+    --radius: 16px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    margin: 0;
+    padding: 32px 16px 40px;
+    background: radial-gradient(1200px 600px at 50% -10%, #ffffff 0%, var(--bg) 55%, #eef0f4 100%);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #e01822, var(--brand));
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    box-shadow: 0 4px 12px rgba(199, 0, 11, 0.28);
+  }
+
+  .brand h1 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.2px;
+  }
+
+  .brand .sub {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--ink-3);
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04), 0 12px 32px -16px rgba(17, 24, 39, 0.16);
+  }
+
+  .form {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+  }
+
+  label {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--ink-2);
+    letter-spacing: 0.2px;
+  }
+
+  input[type="date"] {
+    width: 100%;
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fafbfc;
+    color: var(--ink);
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s, background .15s;
+  }
+
+  input[type="date"]:hover { background: #fff; }
+
+  input[type="date"]:focus {
+    border-color: var(--brand);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(199, 0, 11, 0.1);
+  }
+
+  input[type="date"]:invalid { color: var(--ink-3); }
+
+  .result {
+    padding: 24px 20px 20px;
+    margin-top: 16px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .result.hidden { display: none; }
+
+  .label-main {
+    font-size: 13px;
+    color: var(--ink-2);
+    letter-spacing: 0.5px;
+  }
+
+  .days {
+    margin: 6px 0 2px;
+    font-size: clamp(48px, 15vw, 68px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--brand);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+    word-break: break-all;
+  }
+
+  .unit {
+    font-size: 0.38em;
+    font-weight: 600;
+    letter-spacing: 0;
+    margin-left: 4px;
+    color: var(--ink);
+  }
+
+  .range {
+    font-size: 12.5px;
+    color: var(--ink-3);
+    margin-bottom: 18px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+    gap: 8px;
+  }
+
+  .stat .k {
+    font-size: 11.5px;
+    color: var(--ink-3);
+    margin-bottom: 4px;
+  }
+
+  .stat .v {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .empty {
+    margin-top: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    color: var(--ink-3);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .empty.hidden, .error.hidden { display: none; }
+
+  .error {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--brand-soft);
+    border: 1px solid #f6cfd3;
+    color: #96222b;
+    font-size: 13.5px;
+    line-height: 1.6;
+    display: flex;
+    gap: 8px;
+  }
+
+  .error .icon {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    border-radius: 50%;
+    background: var(--brand);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+  }
+
+  .foot {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--ink-3);
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  @media (max-width: 420px) {
+    body { padding: 20px 12px 28px; }
+    .form { grid-template-columns: 1fr; padding: 16px; gap: 12px; }
+    .result { padding: 20px 16px 16px; }
+    .brand .sub { display: none; }
+    .stat .v { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <div class="logo">H</div>
+    <h1>华为任职天数</h1>
+    <span class="sub">入职日 → 截止日，一算就清楚</span>
+  </div>
+
+  <section class="card form">
+    <div class="field">
+      <label for="startDate">入职日期</label>
+      <input type="date" id="startDate" required />
+    </div>
+    <div class="field">
+      <label for="endDate">计算到</label>
+      <input type="date" id="endDate" required />
+    </div>
+  </section>
+
+  <section class="card result hidden" id="result">
+    <div class="label-main">在华为工作总天数</div>
+    <div class="days"><span id="daysValue">0</span><span class="unit">天</span></div>
+    <div class="range" id="rangeText"></div>
+    <div class="stats">
+      <div class="stat">
+        <div class="k">折算年数</div>
+        <div class="v" id="yearsValue">—</div>
+      </div>
+      <div class="stat">
+        <div class="k">折算月数</div>
+        <div class="v" id="monthsValue">—</div>
+      </div>
+      <div class="stat">
+        <div class="k">满年数</div>
+        <div class="v" id="fullValue">—</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card empty" id="emptyTip">
+    选择入职日期后，这里会显示你在华为的总天数。
+  </section>
+
+  <section class="error hidden" id="errorTip">
+    <span class="icon">!</span>
+    <span id="errorText"></span>
+  </section>
+
+  <p class="foot">
+    天数含入职当天，按自然日计算（1 年 ≈ 365.25 天）。<br />
+    所有计算在本地浏览器完成，数据不会上传。
+  </p>
+</div>
+
+<script>
+(function () {
+  var MS_PER_DAY = 86400000;
+  var startInput = document.getElementById('startDate');
+  var endInput = document.getElementById('endDate');
+  var resultEl = document.getElementById('result');
+  var emptyEl = document.getElementById('emptyTip');
+  var errorEl = document.getElementById('errorTip');
+  var errorText = document.getElementById('errorText');
+
+  var daysValue = document.getElementById('daysValue');
+  var rangeText = document.getElementById('rangeText');
+  var yearsValue = document.getElementById('yearsValue');
+  var monthsValue = document.getElementById('monthsValue');
+  var fullValue = document.getElementById('fullValue');
+
+  function today() {
+    var now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  }
+
+  function pad(n) {
+    return n < 10 ? '0' + n : '' + n;
+  }
+
+  function toInputValue(d) {
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+
+  function parseInputValue(value) {
+    if (!value) return null;
+    var parts = value.split('-');
+    if (parts.length !== 3) return null;
+    var y = parseInt(parts[0], 10);
+    var m = parseInt(parts[1], 10);
+    var d = parseInt(parts[2], 10);
+    if (!y || !m || !d) return null;
+    var date = new Date(y, m - 1, d);
+    if (date.getFullYear() !== y || date.getMonth() !== m - 1 || date.getDate() !== d) {
+      return null;
+    }
+    return date;
+  }
+
+  function utcDays(date) {
+    return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / MS_PER_DAY;
+  }
+
+  function diffDays(start, end) {
+    return Math.round(utcDays(end) - utcDays(start));
+  }
+
+  function formatDate(d) {
+    return d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日';
+  }
+
+  function calendarDiff(start, end) {
+    var y = end.getFullYear() - start.getFullYear();
+    var m = end.getMonth() - start.getMonth();
+    var d = end.getDate() - start.getDate();
+    if (d < 0) {
+      m -= 1;
+      d += new Date(end.getFullYear(), end.getMonth(), 0).getDate();
+    }
+    if (m < 0) {
+      m += 12;
+      y -= 1;
+    }
+    return { years: y, months: m, days: d };
+  }
+
+  function showOnly(el) {
+    resultEl.classList.toggle('hidden', el !== resultEl);
+    emptyEl.classList.toggle('hidden', el !== emptyEl);
+    errorEl.classList.toggle('hidden', el !== errorEl);
+  }
+
+  function showError(message) {
+    errorText.textContent = message;
+    showOnly(errorEl);
+  }
+
+  function calculate() {
+    var start = parseInputValue(startInput.value);
+    var end = parseInputValue(endInput.value);
+
+    if (!start || !end) {
+      showOnly(emptyEl);
+      emptyEl.textContent = '选择入职日期后，这里会显示你在华为的总天数。';
+      return;
+    }
+
+    var now = today();
+    if (start > now) {
+      showError('入职日期不能晚于今天，请重新选择。');
+      return;
+    }
+    if (start > end) {
+      showError('入职日期不能晚于「计算到」的日期，请调整后重试。');
+      return;
+    }
+
+    var totalDays = diffDays(start, end) + 1;
+    var span = calendarDiff(start, end);
+
+    daysValue.textContent = totalDays.toLocaleString('zh-CN');
+    rangeText.textContent = formatDate(start) + ' → ' + formatDate(end);
+
+    var years = totalDays / 365.25;
+    yearsValue.textContent = (Math.floor(years * 10) / 10).toFixed(1) + ' 年';
+    monthsValue.textContent = Math.round(totalDays / 30.4375).toLocaleString('zh-CN') + ' 个月';
+    fullValue.textContent = span.years + ' 年 ' + span.months + ' 个月 ' + span.days + ' 天';
+
+    showOnly(resultEl);
+  }
+
+  var now = today();
+  endInput.max = toInputValue(now);
+  startInput.max = toInputValue(now);
+  endInput.value = toInputValue(now);
+  startInput.value = toInputValue(new Date(now.getFullYear() - 3, now.getMonth(), now.getDate()));
+
+  startInput.addEventListener('input', calculate);
+  startInput.addEventListener('change', calculate);
+  endInput.addEventListener('input', calculate);
+  endInput.addEventListener('change', calculate);
+
+  calculate();
+})();
+</script>
+</body>
+</html>
